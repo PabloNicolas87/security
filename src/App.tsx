@@ -1,14 +1,18 @@
-import Technologies from "./components/Technologies";
+import { Provider } from 'react-redux';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { store } from './store/store';
+import { AppRouter } from './routes/AppRouter';
+
+const queryClient = new QueryClient();
 
 function App() {
-
   return (
-    <>
-      <div className="flex justify-center items-center min-h-screen w-full bg-blue-500 text-white p-4">
-        <Technologies className="w-full" />
-      </div>
-    </>
-  )
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <AppRouter />
+      </Provider>
+    </QueryClientProvider>
+  );
 }
 
-export default App
+export default App;
