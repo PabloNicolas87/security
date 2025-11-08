@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, MessageSquare } from "lucide-react";
+import { LayoutDashboard, MessageSquare, Table } from "lucide-react";
 
 export function Sidebar() {
   const baseClasses =
@@ -30,6 +30,15 @@ export function Sidebar() {
         >
           <MessageSquare size={18} />
           Chat
+        </NavLink>
+        <NavLink
+          to="/events"
+          className={({ isActive }) =>
+            `${baseClasses} ${isActive ? active : inactive}`
+          }
+        >
+          <Table size={18} />
+          Eventos
         </NavLink>
       </nav>
     </aside>

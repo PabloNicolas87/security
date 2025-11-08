@@ -43,17 +43,143 @@
   "events": [
     {
       "id": 1,
-      "timestamp": "2025-11-07T10:23:00Z",
+      "timestamp": "2025-11-07T08:10:00Z",
       "severity": "Alta",
       "source": "Firewall",
       "description": "Tentativa de acesso não autorizado"
     },
     {
       "id": 2,
-      "timestamp": "2025-11-07T11:12:00Z",
+      "timestamp": "2025-11-07T08:25:00Z",
       "severity": "Média",
       "source": "Antivirus",
       "description": "Malware detectado e removido"
+    },
+    {
+      "id": 3,
+      "timestamp": "2025-11-07T09:00:00Z",
+      "severity": "Baixa",
+      "source": "Endpoint",
+      "description": "Conexão suspeita encerrada automaticamente"
+    },
+    {
+      "id": 4,
+      "timestamp": "2025-11-07T09:30:00Z",
+      "severity": "Alta",
+      "source": "SIEM",
+      "description": "Ataque de força bruta bloqueado"
+    },
+    {
+      "id": 5,
+      "timestamp": "2025-11-07T10:00:00Z",
+      "severity": "Média",
+      "source": "Firewall",
+      "description": "Tráfego anômalo detectado"
+    },
+    {
+      "id": 6,
+      "timestamp": "2025-11-07T10:45:00Z",
+      "severity": "Alta",
+      "source": "IDS",
+      "description": "Injeção SQL detectada e bloqueada"
+    },
+    {
+      "id": 7,
+      "timestamp": "2025-11-07T11:10:00Z",
+      "severity": "Baixa",
+      "source": "Endpoint",
+      "description": "Atualização de agente concluída"
+    },
+    {
+      "id": 8,
+      "timestamp": "2025-11-07T11:45:00Z",
+      "severity": "Média",
+      "source": "Antivirus",
+      "description": "Arquivo suspeito movido para quarentena"
+    },
+    {
+      "id": 9,
+      "timestamp": "2025-11-07T12:05:00Z",
+      "severity": "Alta",
+      "source": "Firewall",
+      "description": "Tentativa de acesso externo bloqueada"
+    },
+    {
+      "id": 10,
+      "timestamp": "2025-11-07T12:30:00Z",
+      "severity": "Baixa",
+      "source": "SIEM",
+      "description": "Nova política de logs aplicada"
+    },
+    {
+      "id": 11,
+      "timestamp": "2025-11-07T13:00:00Z",
+      "severity": "Média",
+      "source": "Firewall",
+      "description": "Alteração de rota detectada"
+    },
+    {
+      "id": 12,
+      "timestamp": "2025-11-07T13:20:00Z",
+      "severity": "Alta",
+      "source": "Antivirus",
+      "description": "Ataque ransomware bloqueado"
+    },
+    {
+      "id": 13,
+      "timestamp": "2025-11-07T13:50:00Z",
+      "severity": "Baixa",
+      "source": "Endpoint",
+      "description": "Processo desconhecido encerrado automaticamente"
+    },
+    {
+      "id": 14,
+      "timestamp": "2025-11-07T14:10:00Z",
+      "severity": "Média",
+      "source": "IDS",
+      "description": "Novo host suspeito identificado"
+    },
+    {
+      "id": 15,
+      "timestamp": "2025-11-07T14:40:00Z",
+      "severity": "Alta",
+      "source": "Firewall",
+      "description": "Tentativa de login falhou diversas vezes"
+    },
+    {
+      "id": 16,
+      "timestamp": "2025-11-07T15:00:00Z",
+      "severity": "Média",
+      "source": "Antivirus",
+      "description": "Varredura completa concluída"
+    },
+    {
+      "id": 17,
+      "timestamp": "2025-11-07T15:20:00Z",
+      "severity": "Alta",
+      "source": "SIEM",
+      "description": "Escalada de privilégios detectada"
+    },
+    {
+      "id": 18,
+      "timestamp": "2025-11-07T15:40:00Z",
+      "severity": "Baixa",
+      "source": "Endpoint",
+      "description": "Driver atualizado com sucesso"
+    },
+    {
+      "id": 19,
+      "timestamp": "2025-11-07T16:10:00Z",
+      "severity": "Média",
+      "source": "Firewall",
+      "description": "Conexão instável identificada"
+    },
+    {
+      "id": 20,
+      "timestamp": "2025-11-07T16:30:00Z",
+      "severity": "Alta",
+      "source": "Antivirus",
+      "description": "Execução suspeita bloqueada"
     }
   ]
 }
