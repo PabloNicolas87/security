@@ -1,12 +1,59 @@
 {
-    "users": [
-      {
-        "id": 1,
-        "email": "admin@teste.com",
-        "password": "Admin123",
-        "name": "Admin User",
-        "token": "fake-jwt-token"
-      }
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@teste.com",
+      "password": "Admin123",
+      "name": "Admin User",
+      "token": "fake-jwt-token"
+    }
+  ],
+  "metrics": {
+    "kpis": {
+      "events24h": 156,
+      "critical24h": 8,
+      "agentsOnline": 34,
+      "systemHealth": 98
+    },
+    "series": [
+      { "hour": "00h", "events": 5 },
+      { "hour": "06h", "events": 20 },
+      { "hour": "12h", "events": 65 },
+      { "hour": "18h", "events": 66 }
+    ],
+    "topCategories": [
+      { "category": "Firewall", "count": 45 },
+      { "category": "Antivirus", "count": 38 },
+      { "category": "Endpoint", "count": 28 },
+      { "category": "E-mail", "count": 22 }
+    ],
+    "incidentStatus": [
+      { "status": "Ativos", "value": 12 },
+      { "status": "Resolvidos", "value": 84 },
+      { "status": "Em análise", "value": 9 }
+    ],
+    "killChain": [
+      { "fase": "Reconhecimento", "valor": 70 },
+      { "fase": "Exploração", "valor": 55 },
+      { "fase": "Instalação", "valor": 40 },
+      { "fase": "Comando & Controle", "valor": 60 },
+      { "fase": "Exfiltração", "valor": 30 }
     ]
-  }
-  
+  },
+  "events": [
+    {
+      "id": 1,
+      "timestamp": "2025-11-07T10:23:00Z",
+      "severity": "Alta",
+      "source": "Firewall",
+      "description": "Tentativa de acesso não autorizado"
+    },
+    {
+      "id": 2,
+      "timestamp": "2025-11-07T11:12:00Z",
+      "severity": "Média",
+      "source": "Antivirus",
+      "description": "Malware detectado e removido"
+    }
+  ]
+}
