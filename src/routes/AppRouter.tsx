@@ -7,6 +7,7 @@ import { DashboardPage } from "../features/dashboard/pages/DashboardPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { ResetPasswordPage } from "../features/auth/pages/ResetPasswordPage";
 import { ProtectedLayout } from "../components/layout/ProtectedLayout";
+import { EventsPage } from "../features/events/pages/EventsPage";
 
 export function AppRouter() {
   return (
@@ -20,7 +21,7 @@ export function AppRouter() {
             <Route element={<ProtectedRoute />}>
               <Route element={<ProtectedLayout />}>
                 <Route path="/dashboard" element={<DashboardPage />} />
-                
+                <Route path="/events" element={<EventsPage />} />
               </Route>
             </Route>
             <Route path="*" element={<Navigate to="/login" replace />} />
