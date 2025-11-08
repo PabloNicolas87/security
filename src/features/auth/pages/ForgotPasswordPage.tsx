@@ -1,9 +1,10 @@
 import { ForgotPasswordForm } from "../components/ForgotPasswordForm";
+import { AuthLayout } from "../../../components/layout/AuthLayout";
 
 export function ForgotPasswordPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <AuthLayout>
       <ForgotPasswordForm />
-    </div>
+    </AuthLayout>
   );
 }

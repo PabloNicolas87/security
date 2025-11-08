@@ -1,9 +1,9 @@
 import axios from "axios";
+import { API_CONFIG } from "../config/constants";
+import type { LoginResponse } from "../types";
 
-const API_URL = "http://localhost:4000";
-
-export const login = async (email: string, password: string) => {
-  const { data } = await axios.get(`${API_URL}/users?email=${email}`);
+export const login = async (email: string, password: string): Promise<LoginResponse> => {
+  const { data } = await axios.get(`${API_CONFIG.BASE_URL}/users?email=${email}`);
 
   if (!data.length || data[0].password !== password) {
     throw new Error("Credenciais inválidas");
@@ -20,9 +20,8 @@ export const login = async (email: string, password: string) => {
   };
 };
 
-// 🔹 Simula Nueva función 
-export const forgotPassword = async (email: string) => {
-  const { data } = await axios.get(`${API_URL}/users?email=${email}`);
+export const forgotPassword = async (email: string): Promise<{ ok: boolean; message: string }> => {
+  const { data } = await axios.get(`${API_CONFIG.BASE_URL}/users?email=${email}`);
 
   if (!data.length) {
     throw new Error("E-mail não encontrado");
@@ -35,7 +34,7 @@ export const forgotPassword = async (email: string) => {
   return { ok: true, message: "E-mail de recuperação enviado" };
 };
 
-export const resetPassword = async (newPassword: string) => {
+export const resetPassword = async (newPassword: string): Promise<{ ok: boolean }> => {
   // simula llamada al backend
   await new Promise((resolve) => setTimeout(resolve, 1500));
 

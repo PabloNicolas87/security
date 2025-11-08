@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useResetPassword } from "../hooks/useResetPassword";
 import { Link, useNavigate } from "react-router-dom";
+import { Input, Button, Alert, Card } from "../../../components/ui";
 
 export function ResetPasswordForm() {
   const [password, setPassword] = useState("");
@@ -37,90 +38,88 @@ export function ResetPasswordForm() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-sm mx-auto p-6 bg-white rounded-xl shadow-md space-y-4"
-    >
-      <h2 className="text-2xl font-semibold text-center">
-        Redefinir senha
-      </h2>
-
-      <input
-        type="password"
-        placeholder="Nova senha"
-        value={password}
-        onChange={(e) => {
-          const val = e.target.value;
-          setPassword(val);
-          checkStrength(val);
-        }}
-        className="w-full border p-2 rounded"
-      />
-
-      {/* 🔹 Requisitos dinámicos */}
-      <ul className="text-xs text-gray-600 space-y-1">
-        <li className={rules.lower ? "text-green-600" : "text-gray-500"}>
-          • Pelo menos uma letra minúscula
-        </li>
-        <li className={rules.upper ? "text-green-600" : "text-gray-500"}>
-          • Pelo menos uma letra maiúscula
-        </li>
-        <li className={rules.number ? "text-green-600" : "text-gray-500"}>
-          • Pelo menos um número
-        </li>
-        <li className={rules.length ? "text-green-600" : "text-gray-500"}>
-          • Mínimo 8 caracteres
-        </li>
-      </ul>
-
-      <input
-        type="password"
-        placeholder="Confirmar senha"
-        value={confirm}
-        onChange={(e) => setConfirm(e.target.value)}
-        className="w-full border p-2 rounded"
-      />
-
-      {/* 🔹 Mensajes */}
-      {password && confirm && password !== confirm && (
-        <p className="text-red-500 text-xs text-center">
-          As senhas não coincidem
-        </p>
-      )}
-
-      {error && (
-        <p className="text-red-500 text-sm text-center">
-          {(error as Error).message}
-        </p>
-      )}
-      {isSuccess && (
-        <p className="text-green-600 text-sm text-center">
-          Senha redefinida com sucesso!
-        </p>
-      )}
-
-      {/* 🔹 Botón principal */}
-      <button
-        type="submit"
-        disabled={!allValid || isPending}
-        className={`w-full py-2 rounded text-white font-medium ${
-          allValid
-            ? "bg-blue-600 hover:bg-blue-700"
-            : "bg-gray-400 cursor-not-allowed"
-        }`}
+    <Card className="max-w-sm mx-auto shadow-md" hover={false}>
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4"
       >
-        {isPending ? "Salvando..." : "Salvar nova senha"}
-      </button>
+        <h2 className="text-2xl font-semibold text-center text-gray-800 dark:text-gray-200">
+          Redefinir senha
+        </h2>
 
-      <div className="text-center">
-      <p className="text-xs text-gray-500 text-center">
-  Se você não deseja alterar sua senha agora,{" "}
-  <Link to="/login" className="text-blue-600 hover:underline">
-    volte para o login
-  </Link>.
-</p>
+        <Input
+          type="password"
+          placeholder="Nova senha"
+          value={password}
+          onChange={(e) => {
+            const val = e.target.value;
+            setPassword(val);
+            checkStrength(val);
+          }}
+        />
 
-      </div>
-    </form>
+        {/* 🔹 Requisitos dinámicos */}
+        <ul className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+          <li className={rules.lower ? "text-green-600 dark:text-green-400" : "text-gray-500 dark:text-gray-400"}>
+            • Pelo menos uma letra minúscula
+          </li>
+          <li className={rules.upper ? "text-green-600 dark:text-green-400" : "text-gray-500 dark:text-gray-400"}>
+            • Pelo menos uma letra maiúscula
+          </li>
+          <li className={rules.number ? "text-green-600 dark:text-green-400" : "text-gray-500 dark:text-gray-400"}>
+            • Pelo menos um número
+          </li>
+          <li className={rules.length ? "text-green-600 dark:text-green-400" : "text-gray-500 dark:text-gray-400"}>
+            • Mínimo 8 caracteres
+          </li>
+        </ul>
+
+        <Input
+          type="password"
+          placeholder="Confirmar senha"
+          value={confirm}
+          onChange={(e) => setConfirm(e.target.value)}
+        />
+
+        {/* 🔹 Mensajes */}
+        {password && confirm && password !== confirm && (
+          <Alert variant="error">
+            As senhas não coincidem
+          </Alert>
+        )}
+
+        {error && (
+          <Alert variant="error">
+            {(error as Error).message}
+          </Alert>
+        )}
+        {isSuccess && (
+          <Alert variant="success">
+            Senha redefinida com sucesso!
+          </Alert>
+        )}
+
+        {/* 🔹 Botón principal */}
+        <Button
+          type="submit"
+          disabled={!allValid || isPending}
+          isLoading={isPending}
+          variant={allValid ? "primary" : "secondary"}
+          className="w-full"
+        >
+          Salvar nova senha
+        </Button>
+
+        <div className="text-center">
+        <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+    Se você não deseja alterar sua senha agora,{" "}
+    <Link to="/login" className="text-blue-600 hover:underline dark:text-blue-400">
+      volte para o login
+    </Link>.
+  </p>
+
+        </div>
+      </form>
+    </Card>
   );
 }

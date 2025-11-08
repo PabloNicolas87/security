@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForgotPassword } from "../hooks/useForgotPassword";
 import { Link } from "react-router-dom";
+import { Input, Button, Alert, Card } from "../../../components/ui";
 
 export function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
@@ -16,66 +17,65 @@ export function ForgotPasswordForm() {
   
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-sm mx-auto p-6 bg-white rounded-xl shadow-md space-y-4"
-    >
-        <h2 className="text-2xl font-semibold text-center">Recuperar senha</h2>
-        <input
-            type="email"
-            placeholder="E-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full border p-2 rounded"
-        />
+    <Card className="max-w-sm mx-auto shadow-md" hover={false}>
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4"
+      >
+          <h2 className="text-2xl font-semibold text-center text-gray-800 dark:text-gray-200">Recuperar senha</h2>
+          <Input
+              type="email"
+              placeholder="E-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+          />
 
-        {error && (
-            <p className="text-red-500 text-sm text-center">
-            {(error as Error).message}
-            </p>
-        )}
-        {isSuccess && (
-            <div className="text-center space-y-2">
-                <p className="text-green-600 text-sm">
-                E-mail enviado com sucesso! Verifique sua caixa de entrada.
-                </p>
+          {error && (
+              <Alert variant="error">
+                {(error as Error).message}
+              </Alert>
+          )}
+          {isSuccess && (
+              <div className="text-center space-y-2">
+                  <Alert variant="success">
+                    E-mail enviado com sucesso! Verifique sua caixa de entrada.
+                  </Alert>
 
-                {/* 🔹 Simulación visual del link del e-mail */}
-                <Link
-                to="/reset-password"
-                className="text-sm text-blue-600 hover:underline block"
-                >
-                Simular link recebido por e-mail
-                </Link>
-            </div>
-        )}
-
-
-        <button
-            type="submit"
-            disabled={!validateEmail(email) || isPending}
-            className={`w-full py-2 rounded text-white font-medium ${
-                validateEmail(email)
-                ? "bg-blue-600 hover:bg-blue-700"
-                : "bg-gray-400 cursor-not-allowed"
-            }`}
-            >
-            {isPending ? "Enviando..." : "Enviar e-mail"}
-        </button>
-
-        <p className="text-xs text-gray-500 text-center">
-            Você receberá um link de redefinição de senha no e-mail informado.
-        </p>
+                  {/* 🔹 Simulación visual del link del e-mail */}
+                  <Link
+                  to="/reset-password"
+                  className="text-sm text-blue-600 hover:underline dark:text-blue-400 block"
+                  >
+                  Simular link recebido por e-mail
+                  </Link>
+              </div>
+          )}
 
 
-        <div className="text-center">
-            <Link
-                to="/login"
-                className="text-sm text-blue-600 hover:underline"
-            >
-                Voltar para login
-            </Link>
-        </div>
-    </form>
+          <Button
+              type="submit"
+              disabled={!validateEmail(email) || isPending}
+              isLoading={isPending}
+              variant={validateEmail(email) ? "primary" : "secondary"}
+              className="w-full"
+          >
+              Enviar e-mail
+          </Button>
+
+          <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+              Você receberá um link de redefinição de senha no e-mail informado.
+          </p>
+
+
+          <div className="text-center">
+              <Link
+                  to="/login"
+                  className="text-sm text-blue-600 hover:underline dark:text-blue-400"
+              >
+                  Voltar para login
+              </Link>
+          </div>
+      </form>
+    </Card>
   );
 }

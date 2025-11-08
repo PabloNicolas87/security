@@ -1,8 +1,10 @@
 import { X } from "lucide-react";
 import { useEffect } from "react";
+import { Card, Button } from "../../../components/ui";
+import type { SecurityEvent } from "../../../types";
 
 interface Props {
-  event: any;
+  event: SecurityEvent | null;
   onClose: () => void;
 }
 
@@ -31,20 +33,23 @@ export function EventDetailsDrawer({ event, onClose }: Props) {
       onClick={handleOverlayClick}
       className="fixed inset-0 flex justify-end bg-black/40 z-40"
     >
-      <div className="bg-white w-96 h-full shadow-xl p-6 animate-slide-in relative">
-        <div className="flex justify-between items-center border-b pb-2 mb-4">
-          <h2 className="text-lg font-semibold text-gray-700">
+      <Card className="w-96 h-full shadow-xl animate-slide-in relative rounded-none" padding="lg">
+        <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">
+          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200">
             Detalhes do Evento
           </h2>
-          <button
+          <Button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700"
+            variant="ghost"
+            size="sm"
+            className="p-1"
+            aria-label="Fechar"
           >
             <X size={20} />
-          </button>
+          </Button>
         </div>
 
-        <div className="space-y-2 text-sm">
+        <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
           <p>
             <strong>Data/Hora:</strong>{" "}
             {new Date(event.timestamp).toLocaleString("pt-BR")}
@@ -59,7 +64,7 @@ export function EventDetailsDrawer({ event, onClose }: Props) {
             <strong>Descrição:</strong> {event.description}
           </p>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }

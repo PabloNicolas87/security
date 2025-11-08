@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
-const API_URL = "http://localhost:4000";
+import { API_CONFIG } from "../../../config/constants";
+import type { KPI } from "../../../types";
 
 export function useKpis() {
   return useQuery({
     queryKey: ["kpis"],
-    queryFn: async () => {
-      const { data } = await axios.get(`${API_URL}/metrics`);
+    queryFn: async (): Promise<KPI> => {
+      const { data } = await axios.get(`${API_CONFIG.BASE_URL}/metrics`);
       return data.kpis;
     },
   });

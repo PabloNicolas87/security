@@ -1,10 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-}
+import { STORAGE_KEYS } from "../config/constants";
+import type { User } from "../types";
 
 interface AuthContextType {
   user: User | null;
@@ -19,33 +15,33 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(() => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = localStorage.getItem(STORAGE_KEYS.USER);
     return storedUser ? JSON.parse(storedUser) : null;
   });
   const [token, setToken] = useState<string | null>(
-    localStorage.getItem("token")
+    localStorage.getItem(STORAGE_KEYS.TOKEN)
   );
 
   const logout = () => {
     setUser(null);
     setToken(null);
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.removeItem(STORAGE_KEYS.TOKEN);
+    localStorage.removeItem(STORAGE_KEYS.USER);
   };
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem("token", token);
+      localStorage.setItem(STORAGE_KEYS.TOKEN, token);
     } else {
-      localStorage.removeItem("token");
+      localStorage.removeItem(STORAGE_KEYS.TOKEN);
     }
   }, [token]);
 
   useEffect(() => {
     if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
     } else {
-      localStorage.removeItem("user");
+      localStorage.removeItem(STORAGE_KEYS.USER);
     }
   }, [user]);
 
