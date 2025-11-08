@@ -6,6 +6,7 @@ import { ForgotPasswordPage } from "../features/auth/pages/ForgotPasswordPage";
 import { DashboardPage } from "../features/dashboard/pages/DashboardPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { ResetPasswordPage } from "../features/auth/pages/ResetPasswordPage";
+import { ProtectedLayout } from "../components/layout/ProtectedLayout";
 
 export function AppRouter() {
   return (
@@ -17,7 +18,10 @@ export function AppRouter() {
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route element={<ProtectedRoute />}>
-              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route element={<ProtectedLayout />}>
+                <Route path="/dashboard" element={<DashboardPage />} />
+                
+              </Route>
             </Route>
             <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
