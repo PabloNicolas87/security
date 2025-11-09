@@ -1,30 +1,12 @@
 import { useTheme } from '../../contexts/ThemeContext';
-import { useSidebar } from '../../contexts/SidebarContext';
-import { Moon, Sun, Menu } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 
-export function Header() {
+export function AuthHeader() {
   const { isDarkMode, toggleTheme } = useTheme();
-  
-  let toggleSidebar: (() => void) | null = null;
-  try {
-    const sidebar = useSidebar();
-    toggleSidebar = sidebar.toggle;
-  } catch {
-  }
 
   return (
     <header className="w-full bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm h-16 flex items-center justify-between px-6 fixed top-0 left-0 right-0 z-50">
       <div className="flex items-center gap-3">
-        {toggleSidebar && (
-          <button
-            onClick={toggleSidebar}
-            className="md:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
-            title="Abrir menú"
-          >
-            <Menu size={20} />
-          </button>
-        )}
-
         <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
           <span className="text-white font-bold text-lg">S</span>
         </div>

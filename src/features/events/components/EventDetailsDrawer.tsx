@@ -1,6 +1,6 @@
 import { X } from "lucide-react";
 import { useEffect } from "react";
-import { Card, Button } from "../../../components/ui";
+import { Button } from "../../../components/ui";
 import type { SecurityEvent } from "../../../types";
 
 interface Props {
@@ -11,7 +11,6 @@ interface Props {
 export function EventDetailsDrawer({ event, onClose }: Props) {
   if (!event) return null;
 
-  // 🔹 Cerrar con tecla Esc (opcional)
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -20,51 +19,56 @@ export function EventDetailsDrawer({ event, onClose }: Props) {
     return () => document.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
-  const handleOverlayClick = (e: React.MouseEvent) => {
-    // Evita cerrar si el usuario clickeó dentro del panel
-    if ((e.target as HTMLElement).id === "drawer-overlay") {
-      onClose();
-    }
-  };
-
   return (
-    <div
-      id="drawer-overlay"
-      onClick={handleOverlayClick}
-      className="fixed inset-0 flex justify-end bg-black/40 z-40"
-    >
-      <Card className="w-96 h-full shadow-xl animate-slide-in relative rounded-none" padding="lg">
-        <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">
-          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-            Detalhes do Evento
-          </h2>
-          <Button
-            onClick={onClose}
-            variant="ghost"
-            size="sm"
-            className="p-1"
-            aria-label="Fechar"
-          >
-            <X size={20} />
-          </Button>
-        </div>
+    <div className="h-full bg-white dark:bg-gray-900 flex flex-col overflow-hidden animate-drawer-enter">
+      <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center flex-shrink-0">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+          Detalhes do Evento
+        </h2>
+        <Button
+          onClick={onClose}
+          variant="ghost"
+          size="sm"
+          className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          aria-label="Fechar"
+        >
+          <X size={24} />
+        </Button>
+      </div>
 
-        <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-          <p>
-            <strong>Data/Hora:</strong>{" "}
-            {new Date(event.timestamp).toLocaleString("pt-BR")}
-          </p>
-          <p>
-            <strong>Severidade:</strong> {event.severity}
-          </p>
-          <p>
-            <strong>Fonte:</strong> {event.source}
-          </p>
-          <p>
-            <strong>Descrição:</strong> {event.description}
-          </p>
+      <div className="flex-1 overflow-y-auto px-6 py-4">
+        <div className="space-y-6">
+          <div className="pb-4 border-b border-gray-100 dark:border-gray-800">
+            <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+              Data/Hora
+            </label>
+            <p className="text-sm text-gray-900 dark:text-gray-100 mt-2 font-medium">
+              {new Date(event.timestamp).toLocaleString("pt-BR")}
+            </p>
+          </div>
+
+          <div className="pb-4 border-b border-gray-100 dark:border-gray-800">
+            <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+              Severidade
+            </label>
+            <p className="text-sm text-gray-900 dark:text-gray-100 mt-2 font-medium">{event.severity}</p>
+          </div>
+
+          <div className="pb-4 border-b border-gray-100 dark:border-gray-800">
+            <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+              Fonte
+            </label>
+            <p className="text-sm text-gray-900 dark:text-gray-100 mt-2 font-medium">{event.source}</p>
+          </div>
+
+          <div>
+            <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+              Descrição
+            </label>
+            <p className="text-sm text-gray-900 dark:text-gray-100 mt-2 leading-relaxed">{event.description}</p>
+          </div>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }
