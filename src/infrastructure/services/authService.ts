@@ -1,15 +1,19 @@
 import axios from "axios";
-import { API_CONFIG } from "../config/constants";
-import type { LoginResponse } from "../types";
+import { API_ENDPOINTS } from "../../config/api";
+import type { LoginResponse } from "../../types";
 
-export const login = async (email: string, password: string): Promise<LoginResponse> => {
-  const { data } = await axios.get(`${API_CONFIG.BASE_URL}/users?email=${email}`);
+export const login = async (
+  email: string,
+  password: string
+): Promise<LoginResponse> => {
+  const { data } = await axios.get(
+    `${API_ENDPOINTS.USERS}?email=${email}`
+  );
 
   if (!data.length || data[0].password !== password) {
     throw new Error("Credenciais inválidas");
   }
 
-  // simula retorno de una API real
   return {
     token: data[0].token,
     user: {
@@ -20,25 +24,28 @@ export const login = async (email: string, password: string): Promise<LoginRespo
   };
 };
 
-export const forgotPassword = async (email: string): Promise<{ ok: boolean; message: string }> => {
-  const { data } = await axios.get(`${API_CONFIG.BASE_URL}/users?email=${email}`);
+export const forgotPassword = async (
+  email: string
+): Promise<{ ok: boolean; message: string }> => {
+  const { data } = await axios.get(
+    `${API_ENDPOINTS.USERS}?email=${email}`
+  );
 
   if (!data.length) {
     throw new Error("E-mail não encontrado");
   }
 
-  // simula el envío de correo
   console.log(`Simulando envio de e-mail para ${email}`);
   await new Promise((resolve) => setTimeout(resolve, 1500));
 
   return { ok: true, message: "E-mail de recuperação enviado" };
 };
 
-export const resetPassword = async (newPassword: string): Promise<{ ok: boolean }> => {
-  // simula llamada al backend
+export const resetPassword = async (
+  newPassword: string
+): Promise<{ ok: boolean }> => {
   await new Promise((resolve) => setTimeout(resolve, 1500));
 
-  // verifica reglas mínimas
   const strong =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
 

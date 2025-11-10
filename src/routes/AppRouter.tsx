@@ -1,7 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider } from '../contexts/AuthContext';
-import { ThemeProvider } from '../contexts/ThemeContext';
-import { ChatProvider } from '../features/chat/contexts/ChatContext';
+import { AuthProvider, ThemeProvider, ChatProvider } from '../shared/contexts';
 import { LoginPage } from "../features/auth/pages/LoginPage";
 import { ForgotPasswordPage } from "../features/auth/pages/ForgotPasswordPage";
 import { DashboardPage } from "../features/dashboard/pages/DashboardPage";
@@ -26,7 +24,6 @@ export function AppRouter() {
                   <Route path="/dashboard" element={<DashboardPage />} />
                   <Route path="/events" element={<EventsPage />} />
                   <Route path="/chat" element={<ChatPage />} />
-
                 </Route>
               </Route>
               <Route path="*" element={<Navigate to="/login" replace />} />

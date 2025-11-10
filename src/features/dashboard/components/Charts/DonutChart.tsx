@@ -6,27 +6,23 @@ import {
     type ChartOptions,
   } from "chart.js";
   import { Doughnut } from "react-chartjs-2";
-  import { useMetrics } from "../../hooks/useMetrics";
-  import { useTheme } from "../../../../contexts/ThemeContext";
-  
+  import { useTheme } from "../../../../shared/contexts";
+  import type { IncidentStatus } from "../../../../types";
+
   Chart.register(ArcElement, Tooltip, Legend);
-  
-  export function DonutChart() {
+
+  interface DonutChartProps {
+    incidentStatus: IncidentStatus[];
+  }
+
+  export function DonutChart({ incidentStatus }: DonutChartProps) {
     const { isDarkMode } = useTheme();
-    const { data, isLoading } = useMetrics();
-    if (isLoading || !data) return (
-      <div className="flex items-center justify-center h-full">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  
     const textColor = isDarkMode ? "#e5e7eb" : "#374151";
-  
     const chartData = {
-      labels: data.incidentStatus.map((s: any) => s.status),
+      labels: incidentStatus.map((s: any) => s.status),
       datasets: [
         {
-          data: data.incidentStatus.map((s: any) => s.value),
+          data: incidentStatus.map((s: any) => s.value),
           backgroundColor: ["#3b82f6", "#10b981", "#facc15"],
           borderWidth: 2,
           borderColor: isDarkMode ? "#1f2937" : "#ffffff",
@@ -73,15 +69,13 @@ import {
         },
       },
     };
-
-    const total = data.incidentStatus.reduce((sum: number, item: any) => sum + item.value, 0);
-    const stats = data.incidentStatus.map((item: any) => ({
+    const total = incidentStatus.reduce((sum: number, item: any) => sum + item.value, 0);
+    const stats = incidentStatus.map((item: any) => ({
       status: item.status,
       value: item.value,
       percentage: ((item.value / total) * 100).toFixed(1),
       color: item.status === "Ativo" ? "#3b82f6" : item.status === "Resolvido" ? "#10b981" : "#facc15"
     }));
-  
     return (
       <div className="flex flex-col h-full w-full overflow-hidden">
         <div className="grid grid-cols-3 gap-1 mb-2 pb-2 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
@@ -105,7 +99,6 @@ import {
             </div>
           ))}
         </div>
-
         <div className="flex-1 min-h-0 flex items-center justify-center w-full overflow-hidden">
           <div className="w-32 h-32">
             <Doughnut data={chartData} options={options} />
@@ -114,4 +107,3 @@ import {
       </div>
     );
   }
-  

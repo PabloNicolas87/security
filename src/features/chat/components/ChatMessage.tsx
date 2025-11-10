@@ -1,24 +1,19 @@
 import type { ChatMessage } from "../types";
-
 interface Props {
   msg: ChatMessage;
 }
-
 export function ChatMessageItem({ msg }: Props) {
   const isOwn = msg.user === "Você";
-
   const userColors: Record<string, string> = {
     "Você": "text-blue-500 dark:text-blue-400",
     "Agent01": "text-emerald-500 dark:text-emerald-400",
     "Agent02": "text-purple-500 dark:text-purple-400",
     "System": "text-gray-500 dark:text-gray-400",
   };
-
   const timeString = new Date(msg.timestamp).toLocaleTimeString("pt-BR", {
     hour: "2-digit",
     minute: "2-digit",
   });
-
   return (
     <div className={`my-3 flex ${isOwn ? "justify-end" : "justify-start"}`}>
       <div className={`px-3 py-2 rounded-lg max-w-xs ${
@@ -33,11 +28,9 @@ export function ChatMessageItem({ msg }: Props) {
         }`}>
           {msg.user}
         </span>
-        
         <p className="text-sm break-words mb-1">
           {msg.message}
         </p>
-        
         <span className={`text-xs float-right ${
           isOwn 
             ? "text-blue-600 dark:text-blue-100" 

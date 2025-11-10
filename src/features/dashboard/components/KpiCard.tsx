@@ -1,24 +1,20 @@
 import { Card } from "../../../components/ui";
 import { Activity, AlertTriangle, Server, Heart } from "lucide-react";
 import type { KpiCardProps } from "../../../types";
-
 const iconMap = {
   activity: Activity,
   alert: AlertTriangle,
   server: Server,
   heart: Heart,
 };
-
 const colorMap = {
   blue: "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-l-blue-500",
   red: "bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border-l-red-500",
   green: "bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 border-l-green-500",
   purple: "bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 border-l-purple-500",
 };
-
 export function KpiCard({ title, value, unit, icon, color = "blue" }: KpiCardProps) {
   const Icon = icon && iconMap[icon];
-  
   return (
     <Card 
       className={`border-l-4 ${colorMap[color]} min-h-32 flex flex-col justify-between`}
@@ -46,4 +42,3 @@ export function KpiCard({ title, value, unit, icon, color = "blue" }: KpiCardPro
     </Card>
   );
 }
-  

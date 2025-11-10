@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import type { ChatMessage } from "../types";
-
 export function useSimulatedSocket(onNewMessage: (msg: ChatMessage) => void) {
   useEffect(() => {
     const fakeUsers = ["Agent01", "Agent02", "System"];
@@ -10,7 +9,6 @@ export function useSimulatedSocket(onNewMessage: (msg: ChatMessage) => void) {
       "Mensagem do sistema: todos os serviços online.",
       "Alerta: aumento de tráfego detectado.",
     ];
-
     const interval = setInterval(() => {
       const msg: ChatMessage = {
         id: Date.now(),
@@ -20,7 +18,6 @@ export function useSimulatedSocket(onNewMessage: (msg: ChatMessage) => void) {
       };
       onNewMessage(msg);
     }, 5000);
-
     return () => clearInterval(interval);
   }, [onNewMessage]);
 }

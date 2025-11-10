@@ -1,0 +1,135 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "next": "Next",
+    "previous": "Previous",
+    "language": "Language"
+  },
+  "header": {
+    "title": "Security Dashboard",
+    "lightMode": "Light mode",
+    "darkMode": "Dark mode",
+    "openMenu": "Open menu",
+    "menu": "Menu"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "chat": "Chat",
+    "events": "Events",
+    "logout": "Logout",
+    "logoutMessage": "Session ended",
+    "hello": "Hello",
+    "onlineUsers": "Online Users"
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "forgotPassword": "Forgot my password",
+      "invalidCredentials": "Invalid credentials",
+      "success": "Login successful!",
+      "testCredentials": "Test Credentials:",
+      "useTestCredentials": "Use Test Credentials"
+    },
+    "forgotPassword": {
+      "title": "Recover Password",
+      "email": "Email",
+      "submit": "Send Email",
+      "description": "You will receive a password reset link in the email provided.",
+      "success": "Email sent successfully! Check your inbox.",
+      "emailNotFound": "Email not found",
+      "simulateLink": "Simulate link received by email",
+      "backToLogin": "Back to login"
+    },
+    "resetPassword": {
+      "title": "Reset Password",
+      "password": "New Password",
+      "confirm": "Confirm Password",
+      "submit": "Save New Password",
+      "requirements": {
+        "lowercase": "At least one lowercase letter",
+        "uppercase": "At least one uppercase letter",
+        "number": "At least one number",
+        "length": "Minimum 8 characters"
+      },
+      "mismatch": "Passwords do not match",
+      "success": "Password reset successfully!",
+      "backToLogin": "If you do not want to change your password now, go back to login"
+    }
+  },
+  "dashboard": {
+    "title": "Security Dashboard",
+    "subtitle": "Real-time monitoring of incidents and security metrics",
+    "updated": "Updated recently",
+    "analysis": "Detailed Analysis",
+    "kpis": {
+      "events24h": "Events 24h",
+      "critical24h": "Critical Incidents",
+      "agentsOnline": "Agents Online",
+      "systemHealth": "System Health"
+    },
+    "charts": {
+      "trend": "Trend",
+      "distribution": "Distribution",
+      "incidentStatus": "Incident Status",
+      "comparative": "Comparative Analysis",
+      "max": "Max",
+      "min": "Min",
+      "avg": "Avg",
+      "total": "Total",
+      "change": "Change",
+      "percentage": "% of total"
+    }
+  },
+  "events": {
+    "title": "Events",
+    "subtitle": "Monitoring and management of security events",
+    "total": "Total",
+    "filters": "Filters",
+    "search": "Search",
+    "searchPlaceholder": "Search description, source...",
+    "severity": "Severity",
+    "allSeverities": "All",
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low",
+    "navigation": "Navigation",
+    "page": "Page",
+    "of": "of",
+    "loading": "Loading events...",
+    "noResults": "No events found.",
+    "table": {
+      "datetime": "Date / Time",
+      "severity": "Severity",
+      "source": "Source",
+      "description": "Description"
+    },
+    "details": {
+      "title": "Event Details",
+      "datetime": "Date/Time",
+      "severity": "Severity",
+      "source": "Source",
+      "description": "Description"
+    }
+  },
+  "chat": {
+    "title": "Chat",
+    "placeholder": "Type your message...",
+    "send": "Send",
+    "you": "You",
+    "online": "Online Users"
+  }
+}

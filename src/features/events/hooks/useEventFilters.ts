@@ -1,11 +1,9 @@
 import { useState } from "react";
-
 export function useEventFilters() {
   const [query, setQuery] = useState("");
   const [severity, setSeverity] = useState("");
   const [page, setPage] = useState(1);
-  const [pageSize] = useState(5); // 5 resultados por página
-
+  const [pageSize] = useState(5); 
   const buildQueryParams = () => {
     const params = new URLSearchParams();
     if (query) params.append("q", query);
@@ -14,7 +12,6 @@ export function useEventFilters() {
     params.append("_limit", String(pageSize));
     return `?${params.toString()}`;
   };
-
   return {
     query,
     setQuery,

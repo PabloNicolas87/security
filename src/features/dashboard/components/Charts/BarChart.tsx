@@ -7,38 +7,33 @@ import {
     Legend,
   } from "chart.js";
   import { Bar } from "react-chartjs-2";
-  import { useMetrics } from "../../hooks/useMetrics";
-  import { useTheme } from "../../../../contexts/ThemeContext";
-  
+  import { useTheme } from "../../../../shared/contexts";
+  import type { CategoryData } from "../../../../types";
+
   Chart.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
-  
-  export function BarChart() {
+
+  interface BarChartProps {
+    topCategories: CategoryData[];
+  }
+
+  export function BarChart({ topCategories }: BarChartProps) {
     const { isDarkMode } = useTheme();
-    const { data, isLoading } = useMetrics();
-    if (isLoading || !data) return (
-      <div className="flex items-center justify-center h-full">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  
     const textColor = isDarkMode ? "#e5e7eb" : "#374151";
     const gridColor = isDarkMode ? "#374151" : "#e5e7eb";
     const colors = ["#2563eb", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
-  
     const chartData = {
-      labels: data.topCategories.map((c: any) => c.category),
+      labels: topCategories.map((c: any) => c.category),
       datasets: [
         {
           label: "Cantidad",
-          data: data.topCategories.map((c: any) => c.count),
-          backgroundColor: colors.slice(0, data.topCategories.length),
+          data: topCategories.map((c: any) => c.count),
+          backgroundColor: colors.slice(0, topCategories.length),
           borderRadius: 6,
           borderSkipped: false,
-          hoverBackgroundColor: colors.slice(0, data.topCategories.length).map(c => c + "dd"),
+          hoverBackgroundColor: colors.slice(0, topCategories.length).map(c => c + "dd"),
         },
       ],
     };
-  
     const options: any = {
       responsive: true,
       maintainAspectRatio: true,
@@ -103,13 +98,11 @@ import {
         },
       },
     };
-  
-    const total = data.topCategories.reduce((sum: number, c: any) => sum + c.count, 0);
-    const maxCount = Math.max(...data.topCategories.map((c: any) => c.count));
-  
+    const total = topCategories.reduce((sum: number, c: any) => sum + c.count, 0);
+    const maxCount = Math.max(...topCategories.map((c: any) => c.count));
     return (
       <div className="flex flex-col h-full w-full overflow-hidden items-center justify-center">
-        {/* Stats row - comprimido */}
+        {}
         <div className="grid grid-cols-2 gap-1 mb-2 pb-2 border-b border-gray-200 dark:border-gray-700 flex-shrink-0 w-full">
           <div className="text-center">
             <p className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">Total</p>
@@ -120,12 +113,10 @@ import {
             <p className="text-xs font-bold text-green-600 dark:text-green-400">{maxCount}</p>
           </div>
         </div>
-
-        {/* Chart - contenedor estricto centrado */}
+        {}
         <div className="flex-1 min-h-0 w-full flex items-center justify-center">
           <Bar data={chartData} options={options} />
         </div>
       </div>
     );
   }
-  
