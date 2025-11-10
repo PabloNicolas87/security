@@ -1,13 +1,20 @@
+import { useTranslation } from "react-i18next";
 import { LineChart } from "./LineChart";
 import { BarChart } from "./BarChart";
 import { DonutChart } from "./DonutChart";
 import { RadarChart } from "./RadarChart";
-import { Card } from "../../../../components/ui";
+import { Card, SkeletonChartsGrid } from "../../../../components/ui";
+import { useChartsData } from "../../hooks/useChartsData";
 
 export function ChartsGrid() {
+  const { t } = useTranslation();
+  const { data, isLoading, error } = useChartsData();
+
+  if (isLoading) return <SkeletonChartsGrid />;
+  if (error || !data) return <div className="text-red-500">Error cargando datos</div>;
+
   return (
     <div className="space-y-6">
-      {/* Primera fila - 2 columnas */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card 
           className="h-80 shadow-lg border-l-4 border-l-blue-500 dark:border-l-blue-400 overflow-hidden" 
@@ -17,10 +24,10 @@ export function ChartsGrid() {
           <div className="flex flex-col h-full">
             <h2 className="text-base font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
               <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-              Tendência
+              {t('dashboard.charts.trend')}
             </h2>
             <div className="flex-1 min-h-0">
-              <LineChart />
+              <LineChart series={data.series} />
             </div>
           </div>
         </Card>
@@ -32,16 +39,14 @@ export function ChartsGrid() {
           <div className="flex flex-col h-full">
             <h2 className="text-base font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              Distribuição
+              {t('dashboard.charts.distribution')}
             </h2>
             <div className="flex-1 min-h-0">
-              <BarChart />
+              <BarChart topCategories={data.topCategories} />
             </div>
           </div>
         </Card>
       </div>
-
-      {/* Segunda fila - 2 columnas */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card 
           className="h-80 shadow-lg border-l-4 border-l-purple-500 dark:border-l-purple-400 overflow-hidden" 
@@ -51,10 +56,10 @@ export function ChartsGrid() {
           <div className="flex flex-col h-full">
             <div className="mb-2 flex items-center gap-2">
               <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-              <h2 className="text-base font-bold text-gray-900 dark:text-white">Status de Incidentes</h2>
+              <h2 className="text-base font-bold text-gray-900 dark:text-white">{t('dashboard.charts.incidentStatus')}</h2>
             </div>
             <div className="flex-1 min-h-0">
-              <DonutChart />
+              <DonutChart incidentStatus={data.incidentStatus} />
             </div>
           </div>
         </Card>
@@ -66,10 +71,10 @@ export function ChartsGrid() {
           <div className="flex flex-col h-full">
             <h2 className="text-base font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
               <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-              Análise Comparativa
+              {t('dashboard.charts.comparative')}
             </h2>
             <div className="flex-1 min-h-0">
-              <RadarChart />
+              <RadarChart killChain={data.killChain} />
             </div>
           </div>
         </Card>

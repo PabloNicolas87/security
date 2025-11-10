@@ -1,12 +1,9 @@
 import { useSimulatedSocket } from "./useSimulatedSocket";
-import { useChatContext } from "../contexts/ChatContext";
+import { useChatContext } from "../../../shared/contexts";
 import type { ChatMessage } from "../types";
-
 export function useChat() {
   const { messages, addMessage } = useChatContext();
-
   useSimulatedSocket(addMessage);
-
   const sendMessage = (text: string) => {
     if (!text.trim()) return;
     const newMsg: ChatMessage = {
@@ -17,6 +14,5 @@ export function useChat() {
     };
     addMessage(newMsg);
   };
-
   return { messages, sendMessage };
 }

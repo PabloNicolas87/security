@@ -1,9 +1,7 @@
-import { useTheme } from '../../contexts/ThemeContext';
+import { useTheme } from '../../shared/contexts';
 import { Moon, Sun } from 'lucide-react';
-
 export function AuthHeader() {
   const { isDarkMode, toggleTheme } = useTheme();
-
   return (
     <header className="w-full bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm h-16 flex items-center justify-between px-6 fixed top-0 left-0 right-0 z-50">
       <div className="flex items-center gap-3">
@@ -14,7 +12,6 @@ export function AuthHeader() {
           Painel de Segurança
         </h1>
       </div>
-
       <div className="flex items-center gap-4">
         <button
           onClick={toggleTheme}

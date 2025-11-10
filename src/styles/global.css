@@ -2,6 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :focus-visible {
+      outline: 2px solid #60a5fa;
+      outline-offset: 2px;
+    }
+  }
+  input:focus,
+  button:focus,
+  select:focus,
+  textarea:focus,
+  a:focus,
+  [role="button"]:focus {
+    outline: none;
+  }
+}
+
+@layer utilities {
+  .focus-visible-ring {
+    @apply focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900;
+  }
+
+  .focus-visible-ring-sm {
+    @apply focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 focus-visible:ring-offset-1 dark:focus-visible:ring-offset-gray-900;
+  }
+
+  .focus-visible-ring-dark {
+    @apply focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:focus-visible:ring-blue-300 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-800;
+  }
+}
+
 @keyframes slide-in {
   from { transform: translateX(100%); opacity: 0.8; }
   to { transform: translateX(0); opacity: 1; }
