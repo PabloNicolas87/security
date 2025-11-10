@@ -1,4 +1,5 @@
-import {
+import { memo, useMemo } from "react";
+  import {
     Chart,
     BarElement,
     CategoryScale,
@@ -16,12 +17,13 @@ import {
     topCategories: CategoryData[];
   }
 
-  export function BarChart({ topCategories }: BarChartProps) {
+  export const BarChart = memo(function BarChart({ topCategories }: BarChartProps) {
     const { isDarkMode } = useTheme();
     const textColor = isDarkMode ? "#e5e7eb" : "#374151";
     const gridColor = isDarkMode ? "#374151" : "#e5e7eb";
     const colors = ["#2563eb", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
-    const chartData = {
+    
+    const chartData = useMemo(() => ({
       labels: topCategories.map((c: any) => c.category),
       datasets: [
         {
@@ -33,8 +35,9 @@ import {
           hoverBackgroundColor: colors.slice(0, topCategories.length).map(c => c + "dd"),
         },
       ],
-    };
-    const options: any = {
+    }), [topCategories, colors]);
+    
+    const options: any = useMemo(() => ({
       responsive: true,
       maintainAspectRatio: true,
       indexAxis: "x",
@@ -97,20 +100,25 @@ import {
           beginAtZero: true,
         },
       },
-    };
-    const total = topCategories.reduce((sum: number, c: any) => sum + c.count, 0);
-    const maxCount = Math.max(...topCategories.map((c: any) => c.count));
+    }), [textColor, gridColor, isDarkMode]);
+
+    const stats = useMemo(() => {
+      const total = topCategories.reduce((sum: number, c: any) => sum + c.count, 0);
+      const maxCount = Math.max(...topCategories.map((c: any) => c.count));
+      return { total, maxCount };
+    }, [topCategories]);
+
     return (
       <div className="flex flex-col h-full w-full overflow-hidden items-center justify-center">
         {}
         <div className="grid grid-cols-2 gap-1 mb-2 pb-2 border-b border-gray-200 dark:border-gray-700 flex-shrink-0 w-full">
           <div className="text-center">
             <p className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">Total</p>
-            <p className="text-xs font-bold text-blue-600 dark:text-blue-400">{total}</p>
+            <p className="text-xs font-bold text-blue-600 dark:text-blue-400">{stats.total}</p>
           </div>
           <div className="text-center">
             <p className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">Máx</p>
-            <p className="text-xs font-bold text-green-600 dark:text-green-400">{maxCount}</p>
+            <p className="text-xs font-bold text-green-600 dark:text-green-400">{stats.maxCount}</p>
           </div>
         </div>
         {}
@@ -119,4 +127,4 @@ import {
         </div>
       </div>
     );
-  }
+  });

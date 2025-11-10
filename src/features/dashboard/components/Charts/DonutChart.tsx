@@ -1,4 +1,5 @@
-import {
+import { memo, useMemo } from "react";
+  import {
     Chart,
     ArcElement,
     Tooltip,
@@ -15,10 +16,11 @@ import {
     incidentStatus: IncidentStatus[];
   }
 
-  export function DonutChart({ incidentStatus }: DonutChartProps) {
+  export const DonutChart = memo(function DonutChart({ incidentStatus }: DonutChartProps) {
     const { isDarkMode } = useTheme();
     const textColor = isDarkMode ? "#e5e7eb" : "#374151";
-    const chartData = {
+    
+    const chartData = useMemo(() => ({
       labels: incidentStatus.map((s: any) => s.status),
       datasets: [
         {
@@ -29,8 +31,9 @@ import {
           hoverBorderWidth: 3,
         },
       ],
-    };
-    const options: ChartOptions<"doughnut"> = {
+    }), [incidentStatus, isDarkMode]);
+    
+    const options: ChartOptions<"doughnut"> = useMemo(() => ({
       responsive: true,
       maintainAspectRatio: true,
       plugins: {
@@ -68,14 +71,18 @@ import {
           }
         },
       },
-    };
-    const total = incidentStatus.reduce((sum: number, item: any) => sum + item.value, 0);
-    const stats = incidentStatus.map((item: any) => ({
-      status: item.status,
-      value: item.value,
-      percentage: ((item.value / total) * 100).toFixed(1),
-      color: item.status === "Ativo" ? "#3b82f6" : item.status === "Resolvido" ? "#10b981" : "#facc15"
-    }));
+    }), [textColor, isDarkMode]);
+
+    const stats = useMemo(() => {
+      const total = incidentStatus.reduce((sum: number, item: any) => sum + item.value, 0);
+      return incidentStatus.map((item: any) => ({
+        status: item.status,
+        value: item.value,
+        percentage: ((item.value / total) * 100).toFixed(1),
+        color: item.status === "Ativo" ? "#3b82f6" : item.status === "Resolvido" ? "#10b981" : "#facc15"
+      }));
+    }, [incidentStatus]);
+
     return (
       <div className="flex flex-col h-full w-full overflow-hidden">
         <div className="grid grid-cols-3 gap-1 mb-2 pb-2 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
@@ -106,4 +113,4 @@ import {
         </div>
       </div>
     );
-  }
+  });

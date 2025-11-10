@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useMemo, useCallback } from "react";
 import { STORAGE_KEYS } from "../../config/constants";
 import type { User } from "../../types";
 interface AuthContextType {
@@ -18,12 +18,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string | null>(
     localStorage.getItem(STORAGE_KEYS.TOKEN)
   );
-  const logout = () => {
+  const logout = useCallback(() => {
     setUser(null);
     setToken(null);
     localStorage.removeItem(STORAGE_KEYS.TOKEN);
     localStorage.removeItem(STORAGE_KEYS.USER);
-  };
+  }, []);
   useEffect(() => {
     if (token) {
       localStorage.setItem(STORAGE_KEYS.TOKEN, token);
@@ -39,8 +39,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [user]);
   const isAuthenticated = !!(user && token);
+  
+  const contextValue = useMemo(() => ({
+    user,
+    token,
+    isAuthenticated,
+    setUser,
+    setToken,
+    logout
+  }), [user, token, isAuthenticated, logout]);
+
   return (
-    <AuthContext.Provider value={{ user, token, isAuthenticated, setUser, setToken, logout }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );

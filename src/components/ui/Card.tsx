@@ -1,3 +1,4 @@
+import { memo } from "react";
 import type { ReactNode } from "react";
 interface CardProps {
   children: ReactNode;
@@ -18,7 +19,7 @@ interface CardFooterProps {
   children: ReactNode;
   className?: string;
 }
-export function Card({ 
+export const Card = memo(function Card({ 
   children, 
   className = "", 
   hover = true,
@@ -45,21 +46,24 @@ export function Card({
       {children}
     </div>
   );
-}
-export function CardHeader({ children, className = "" }: CardHeaderProps) {
+});
+
+export const CardHeader = memo(function CardHeader({ children, className = "" }: CardHeaderProps) {
   return (
     <div className={`border-b border-gray-200 dark:border-gray-700 pb-3 mb-4 ${className}`}>
       {children}
     </div>
   );
-}
-export function CardBody({ children, className = "" }: CardBodyProps) {
+});
+
+export const CardBody = memo(function CardBody({ children, className = "" }: CardBodyProps) {
   return <div className={className}>{children}</div>;
-}
-export function CardFooter({ children, className = "" }: CardFooterProps) {
+});
+
+export const CardFooter = memo(function CardFooter({ children, className = "" }: CardFooterProps) {
   return (
     <div className={`border-t border-gray-200 dark:border-gray-700 pt-4 mt-4 ${className}`}>
       {children}
     </div>
   );
-}
+});

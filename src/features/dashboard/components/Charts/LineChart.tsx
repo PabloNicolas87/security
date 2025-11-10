@@ -1,3 +1,4 @@
+import { memo, useMemo } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart, LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler } from "chart.js";
 import { useTheme } from "../../../../shared/contexts";
@@ -10,13 +11,14 @@ interface LineChartProps {
   series: SeriesData[];
 }
 
-export function LineChart({ series }: LineChartProps) {
+export const LineChart = memo(function LineChart({ series }: LineChartProps) {
   const { isDarkMode } = useTheme();
   const { t } = useTranslation();
 
   const textColor = isDarkMode ? "#e5e7eb" : "#374151";
   const gridColor = isDarkMode ? "#374151" : "#e5e7eb";
-  const chartData = {
+  
+  const chartData = useMemo(() => ({
     labels: series.map((d: any) => d.hour),
     datasets: [
       {
@@ -33,8 +35,9 @@ export function LineChart({ series }: LineChartProps) {
         pointBorderWidth: 2,
       },
     ],
-  };
-  const options: any = {
+  }), [series, isDarkMode, t]);
+
+  const options: any = useMemo(() => ({
     responsive: true,
     maintainAspectRatio: true,
     plugins: {
@@ -100,24 +103,29 @@ export function LineChart({ series }: LineChartProps) {
         beginAtZero: true,
       },
     },
-  };
-  const maxEvents = Math.max(...series.map((d: any) => d.events));
-  const minEvents = Math.min(...series.map((d: any) => d.events));
-  const avgEvents = (series.reduce((sum: number, d: any) => sum + d.events, 0) / series.length).toFixed(0);
+  }), [textColor, gridColor, isDarkMode, t]);
+
+  const stats = useMemo(() => {
+    const maxEvents = Math.max(...series.map((d: any) => d.events));
+    const minEvents = Math.min(...series.map((d: any) => d.events));
+    const avgEvents = (series.reduce((sum: number, d: any) => sum + d.events, 0) / series.length).toFixed(0);
+    return { maxEvents, minEvents, avgEvents };
+  }, [series]);
+
   return (
     <div className="flex flex-col h-full w-full overflow-hidden items-center justify-center">
       <div className="grid grid-cols-3 gap-1 mb-2 pb-2 border-b border-gray-200 dark:border-gray-700 flex-shrink-0 w-full">
         <div className="text-center">
           <p className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">{t('dashboard.charts.max')}</p>
-          <p className="text-xs font-bold text-blue-600 dark:text-blue-400">{maxEvents}</p>
+          <p className="text-xs font-bold text-blue-600 dark:text-blue-400">{stats.maxEvents}</p>
         </div>
         <div className="text-center">
           <p className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">{t('dashboard.charts.avg')}</p>
-          <p className="text-xs font-bold text-green-600 dark:text-green-400">{avgEvents}</p>
+          <p className="text-xs font-bold text-green-600 dark:text-green-400">{stats.avgEvents}</p>
         </div>
         <div className="text-center">
           <p className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">{t('dashboard.charts.min')}</p>
-          <p className="text-xs font-bold text-orange-600 dark:text-orange-400">{minEvents}</p>
+          <p className="text-xs font-bold text-orange-600 dark:text-orange-400">{stats.minEvents}</p>
         </div>
       </div>
       <div className="flex-1 min-h-0 w-full flex items-center justify-center">
@@ -125,4 +133,4 @@ export function LineChart({ series }: LineChartProps) {
       </div>
     </div>
   );
-}
+});

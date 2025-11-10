@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useLogin } from "../hooks/useLogin";
 import { Link } from "react-router-dom";
 import { Copy, Check } from "lucide-react";
@@ -21,23 +21,26 @@ export function LoginForm() {
       toast.error(t('auth.login.invalidCredentials'));
     }
   }, [error, t, toast]);
-  const handleSubmit = (e: React.FormEvent) => {
+  
+  const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     mutate({ email, password }, {
       onSuccess: () => {
         toast.success(t('auth.login.success'));
       }
     });
-  };
-  const handleCopy = (text: string, field: string) => {
+  }, [email, password, mutate, toast, t]);
+  
+  const handleCopy = useCallback((text: string, field: string) => {
     navigator.clipboard.writeText(text);
     setCopiedField(field);
     setTimeout(() => setCopiedField(null), 2000);
-  };
-  const fillCredentials = () => {
+  }, []);
+  
+  const fillCredentials = useCallback(() => {
     setEmail(TEST_CREDENTIALS.email);
     setPassword(TEST_CREDENTIALS.password);
-  };
+  }, []);
   return (
     <Card className="max-w-sm mx-auto shadow-md" hover={false}>
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>

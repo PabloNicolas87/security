@@ -3,7 +3,7 @@ import { LayoutDashboard, MessageSquare, Table, LogOut, ChevronLeft, X } from "l
 import { useAuth, useSidebar } from "../../shared/contexts";
 import { useTranslation } from "react-i18next";
 import { useToast } from "../../shared/hooks/useToast";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 export function Sidebar() {
   const { user, logout } = useAuth();
   const { isOpen: sidebarOpen, close: closeSidebar } = useSidebar();
@@ -18,18 +18,21 @@ export function Sidebar() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  const handleDesktopToggle = () => {
+  
+  const handleDesktopToggle = useCallback(() => {
     setDesktopOpen(!desktopOpen);
-  };
-  const handleNavClick = () => {
+  }, [desktopOpen]);
+  
+  const handleNavClick = useCallback(() => {
     if (isMobile) {
       closeSidebar();
     }
-  };
-  const handleLogout = () => {
+  }, [isMobile, closeSidebar]);
+  
+  const handleLogout = useCallback(() => {
     logout();
     toast.warning(t('sidebar.logoutMessage'));
-  };
+  }, [logout, toast, t]);
   const baseClasses =
     "flex items-center gap-2 rounded-md text-sm font-medium transition-colors";
   const paddingClasses = desktopOpen ? "px-4 py-2" : "p-2";

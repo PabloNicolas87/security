@@ -1,4 +1,5 @@
-import {
+import { memo, useMemo } from "react";
+  import {
     Chart,
     RadialLinearScale,
     PointElement,
@@ -24,11 +25,12 @@ import {
     killChain: KillChain[];
   }
 
-  export function RadarChart({ killChain }: RadarChartProps) {
+  export const RadarChart = memo(function RadarChart({ killChain }: RadarChartProps) {
     const { isDarkMode } = useTheme();
     const textColor = isDarkMode ? "#e5e7eb" : "#374151";
     const gridColor = isDarkMode ? "#374151" : "#e5e7eb";
-    const chartData = {
+    
+    const chartData = useMemo(() => ({
       labels: killChain.map((f: any) => f.fase),
       datasets: [
         {
@@ -45,8 +47,9 @@ import {
           tension: 0.4,
         },
       ],
-    };
-    const options: any = {
+    }), [killChain, isDarkMode]);
+    
+    const options: any = useMemo(() => ({
       responsive: true,
       maintainAspectRatio: true,
       plugins: {
@@ -102,20 +105,25 @@ import {
           },
         },
       },
-    };
-    const avgValue = (killChain.reduce((sum: number, f: any) => sum + f.valor, 0) / killChain.length).toFixed(1);
-    const maxValue = Math.max(...killChain.map((f: any) => f.valor));
+    }), [textColor, gridColor, isDarkMode]);
+
+    const stats = useMemo(() => {
+      const avgValue = (killChain.reduce((sum: number, f: any) => sum + f.valor, 0) / killChain.length).toFixed(1);
+      const maxValue = Math.max(...killChain.map((f: any) => f.valor));
+      return { avgValue, maxValue };
+    }, [killChain]);
+
     return (
       <div className="flex flex-col h-full w-full overflow-hidden items-center justify-center">
         {}
         <div className="grid grid-cols-2 gap-1 mb-2 pb-2 border-b border-gray-200 dark:border-gray-700 flex-shrink-0 w-full">
           <div className="text-center">
             <p className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">Prom</p>
-            <p className="text-xs font-bold text-blue-600 dark:text-blue-400">{avgValue}</p>
+            <p className="text-xs font-bold text-blue-600 dark:text-blue-400">{stats.avgValue}</p>
           </div>
           <div className="text-center">
             <p className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">Máx</p>
-            <p className="text-xs font-bold text-green-600 dark:text-green-400">{maxValue}</p>
+            <p className="text-xs font-bold text-green-600 dark:text-green-400">{stats.maxValue}</p>
           </div>
         </div>
         {}
@@ -124,4 +132,4 @@ import {
         </div>
       </div>
     );
-  }
+  });

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import type { ChatMessage } from '../../features/chat/types';
 interface ChatContextType {
@@ -24,15 +24,22 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem('chat_messages', JSON.stringify(messages));
   }, [messages]);
-  const addMessage = (msg: ChatMessage) => {
+  const addMessage = useCallback((msg: ChatMessage) => {
     setMessages(prev => [...prev, msg]);
-  };
-  const clearMessages = () => {
+  }, []);
+  const clearMessages = useCallback(() => {
     setMessages([]);
     localStorage.removeItem('chat_messages');
-  };
+  }, []);
+  
+  const contextValue = useMemo(() => ({
+    messages,
+    addMessage,
+    clearMessages
+  }), [messages, addMessage, clearMessages]);
+
   return (
-    <ChatContext.Provider value={{ messages, addMessage, clearMessages }}>
+    <ChatContext.Provider value={contextValue}>
       {children}
     </ChatContext.Provider>
   );

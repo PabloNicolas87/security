@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import { STORAGE_KEYS } from '../../config/constants';
 interface ThemeContextType {
@@ -22,11 +22,17 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
     localStorage.setItem(STORAGE_KEYS.DARK_MODE, String(isDarkMode));
   }, [isDarkMode]);
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  const toggleTheme = useCallback(() => {
+    setIsDarkMode(prev => !prev);
+  }, []);
+  
+  const contextValue = useMemo(() => ({
+    isDarkMode,
+    toggleTheme
+  }), [isDarkMode, toggleTheme]);
+
   return (
-    <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
+    <ThemeContext.Provider value={contextValue}>
       {children}
     </ThemeContext.Provider>
   );

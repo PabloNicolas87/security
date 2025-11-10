@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Card } from "../../../components/ui";
 import { Activity, AlertTriangle, Server, Heart } from "lucide-react";
 import type { KpiCardProps } from "../../../types";
@@ -13,7 +14,7 @@ const colorMap = {
   green: "bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 border-l-green-500",
   purple: "bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 border-l-purple-500",
 };
-export function KpiCard({ title, value, unit, icon, color = "blue" }: KpiCardProps) {
+export const KpiCard = memo(function KpiCard({ title, value, unit, icon, color = "blue" }: KpiCardProps) {
   const Icon = icon && iconMap[icon];
   return (
     <Card 
@@ -41,4 +42,4 @@ export function KpiCard({ title, value, unit, icon, color = "blue" }: KpiCardPro
       </div>
     </Card>
   );
-}
+});

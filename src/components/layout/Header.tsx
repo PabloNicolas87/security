@@ -1,8 +1,8 @@
 import { useTheme, useSidebar } from '../../shared/contexts';
 import { useTranslation } from 'react-i18next';
 import { Moon, Sun, Menu, Globe } from 'lucide-react';
-import { useState } from 'react';
-export function Header() {
+import { useState, useCallback, memo } from 'react';
+export const Header = memo(function Header() {
   const { isDarkMode, toggleTheme } = useTheme();
   const { t, i18n } = useTranslation();
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
@@ -12,11 +12,11 @@ export function Header() {
     toggleSidebar = sidebar.toggle;
   } catch {
   }
-  const changeLanguage = async (lng: string) => {
+  const changeLanguage = useCallback(async (lng: string) => {
     await i18n.changeLanguage(lng);
     localStorage.setItem('i18nextLng', lng);
     setShowLanguageMenu(false);
-  };
+  }, [i18n]);
   return (
     <header className="w-full bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm h-16 flex items-center justify-between px-6 fixed top-0 left-0 right-0 z-50">
       <div className="flex items-center gap-3">
@@ -81,4 +81,4 @@ export function Header() {
       </div>
     </header>
   );
-}
+});
