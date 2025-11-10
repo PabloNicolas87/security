@@ -1,8 +1,15 @@
-// tailwind.config.cjs
 module.exports = {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
+  content: ['./index.html', './src/**/*.{ts,tsx,js,jsx}'],
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        'chat-user': {
+          light: 'rgb(219 234 254)',
+          dark: 'rgb(30 58 138)',
+        },
+      },
+    },
   },
-  plugins: []
-}
+  plugins: [],
+};

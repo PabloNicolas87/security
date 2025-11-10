@@ -1,9 +1,9 @@
 import { ResetPasswordForm } from "../components/ResetPasswordForm";
-
+import { AuthLayout } from "../../../components/layout/AuthLayout";
 export function ResetPasswordPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <AuthLayout>
       <ResetPasswordForm />
-    </div>
+    </AuthLayout>
   );
 }

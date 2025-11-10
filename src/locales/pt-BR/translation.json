@@ -1,0 +1,135 @@
+{
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "success": "Sucesso",
+    "warning": "Aviso",
+    "info": "Informação",
+    "close": "Fechar",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Deletar",
+    "edit": "Editar",
+    "add": "Adicionar",
+    "search": "Pesquisar",
+    "next": "Próxima",
+    "previous": "Anterior",
+    "language": "Idioma"
+  },
+  "header": {
+    "title": "Painel de Segurança",
+    "lightMode": "Modo claro",
+    "darkMode": "Modo escuro",
+    "openMenu": "Abrir menu",
+    "menu": "Menu"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "chat": "Chat",
+    "events": "Eventos",
+    "logout": "Sair",
+    "logoutMessage": "Sessão encerrada",
+    "hello": "Olá",
+    "onlineUsers": "Usuários online"
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "email": "E-mail",
+      "password": "Senha",
+      "submit": "Entrar",
+      "forgotPassword": "Esqueci minha senha",
+      "invalidCredentials": "Credenciais inválidas",
+      "success": "Login realizado com sucesso!",
+      "testCredentials": "Credenciais de Teste:",
+      "useTestCredentials": "Usar Credenciais de Teste"
+    },
+    "forgotPassword": {
+      "title": "Recuperar senha",
+      "email": "E-mail",
+      "submit": "Enviar e-mail",
+      "description": "Você receberá um link de redefinição de senha no e-mail informado.",
+      "success": "E-mail enviado com sucesso! Verifique sua caixa de entrada.",
+      "emailNotFound": "E-mail não encontrado",
+      "simulateLink": "Simular link recebido por e-mail",
+      "backToLogin": "Voltar para login"
+    },
+    "resetPassword": {
+      "title": "Redefinir senha",
+      "password": "Nova senha",
+      "confirm": "Confirmar senha",
+      "submit": "Salvar nova senha",
+      "requirements": {
+        "lowercase": "Pelo menos uma letra minúscula",
+        "uppercase": "Pelo menos uma letra maiúscula",
+        "number": "Pelo menos um número",
+        "length": "Mínimo 8 caracteres"
+      },
+      "mismatch": "As senhas não coincidem",
+      "success": "Senha redefinida com sucesso!",
+      "backToLogin": "Se você não deseja alterar sua senha agora, volte para o login"
+    }
+  },
+  "dashboard": {
+    "title": "Painel de Segurança",
+    "subtitle": "Monitoramento em tempo real de incidentes e métricas de segurança",
+    "updated": "Atualizado recentemente",
+    "analysis": "Análise Detalhada",
+    "kpis": {
+      "events24h": "Eventos 24h",
+      "critical24h": "Incidentes críticos",
+      "agentsOnline": "Agentes online",
+      "systemHealth": "Saúde do sistema"
+    },
+    "charts": {
+      "trend": "Tendência",
+      "distribution": "Distribuição",
+      "incidentStatus": "Status de Incidentes",
+      "comparative": "Análise Comparativa",
+      "max": "Máx",
+      "min": "Mín",
+      "avg": "Média",
+      "total": "Total",
+      "change": "Mudança",
+      "percentage": "% do total"
+    }
+  },
+  "events": {
+    "title": "Eventos",
+    "subtitle": "Monitoramento e gestão de eventos de segurança",
+    "total": "Total",
+    "filters": "Filtros",
+    "search": "Busca",
+    "searchPlaceholder": "Pesquisar descrição, fonte...",
+    "severity": "Severidade",
+    "allSeverities": "Todas",
+    "high": "Alta",
+    "medium": "Média",
+    "low": "Baixa",
+    "navigation": "Navegação",
+    "page": "Página",
+    "of": "de",
+    "loading": "Carregando eventos...",
+    "noResults": "Nenhum evento encontrado.",
+    "table": {
+      "datetime": "Data / Hora",
+      "severity": "Severidade",
+      "source": "Fonte",
+      "description": "Descrição"
+    },
+    "details": {
+      "title": "Detalhes do Evento",
+      "datetime": "Data/Hora",
+      "severity": "Severidade",
+      "source": "Fonte",
+      "description": "Descrição"
+    }
+  },
+  "chat": {
+    "title": "Chat",
+    "placeholder": "Digite sua mensagem...",
+    "send": "Enviar",
+    "you": "Você",
+    "online": "Usuários online"
+  }
+}
